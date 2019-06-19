@@ -20,6 +20,9 @@ build:
 
 test:
 	go test `go list ./... | egrep -v 'test' | egrep -v 'gateway'`
+	# gateway ut 
+	# go test ./gateway/etcd
+	# go test ./gateway/consistent_hash
 	# test wasm sdk
 	GOOS=js GOARCH=wasm go build github.com/xuperchain/xuperunion/contractsdk/go/driver
 

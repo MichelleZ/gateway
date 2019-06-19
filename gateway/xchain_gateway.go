@@ -29,11 +29,16 @@ import (
 )
 
 const (
-	MaxMsgSize            = 128 << 20
-	InitialWindowSize     = 128 << 10
+	// MaxMsgSize max message size
+	MaxMsgSize = 128 << 20
+	// InitialWindowSize window size
+	InitialWindowSize = 128 << 10
+	// InitialConnWindowSize connetion window size
 	InitialConnWindowSize = 64 << 10
-	ReadBufferSize        = 32 << 10
-	WriteBufferSize       = 32 << 10
+	// ReadBufferSize buffer size
+	ReadBufferSize = 32 << 10
+	// WriteBufferSize write buffer size
+	WriteBufferSize = 32 << 10
 )
 
 var (
