@@ -1,0 +1,9 @@
+t=2019-06-19T14:09:25+0800 lvl=trce msg="Plugin conf load successfully!" module=xchain pluginCount=5
+t=2019-06-19T14:09:25+0800 lvl=trce msg="Load a plugin successfully" module=xchain name=crypto subtype=default
+t=2019-06-19T14:09:25+0800 lvl=trce msg="Load a plugin successfully" module=xchain name=crypto subtype=default
+t=2019-06-19T14:30:47+0800 lvl=trce msg="Plugin conf load successfully!" module=xchain pluginCount=5
+t=2019-06-19T14:30:47+0800 lvl=trce msg="Load a plugin successfully" module=xchain name=crypto subtype=default
+t=2019-06-19T14:30:47+0800 lvl=trce msg="Load a plugin successfully" module=xchain name=crypto subtype=default
+t=2019-06-19T14:33:06+0800 lvl=trce msg="Plugin conf load successfully!" module=xchain pluginCount=5
+t=2019-06-19T14:33:06+0800 lvl=trce msg="Load a plugin successfully" module=xchain name=crypto subtype=default
+t=2019-06-19T14:33:06+0800 lvl=trce msg="Load a plugin successfully" module=xchain name=crypto subtype=default

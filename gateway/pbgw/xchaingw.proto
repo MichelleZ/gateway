@@ -1,0 +1,204 @@
+syntax = "proto3";
+ 
+package pbgw;
+
+import "google/api/annotations.proto";
+import "baidu.com/xchain/pb/xchain.proto";
+
+// Xchain is the main interfaces
+service Xchain {
+	
+	// create account
+    rpc createAccount(pb.AccountInput) returns (pb.AccountOutput) {
+		option (google.api.http) = {
+			post: "/v1/create_acc"
+			body: "*"// body: "*"
+		};
+	}
+
+	// GenerateTx generate Transaction use TxData, the utxo will be frozen to avoid double spend
+	rpc GenerateTx(pb.TxData) returns (pb.TxStatus) {
+		option (google.api.http) = {
+			post: "/v1/generate_tx"
+			body: "*"
+		};
+	}
+
+	//Generate Publish Evm SmartContract Transcation
+	//rpc GenPubEvmTx() returns (TxStatus) {
+	//}
+
+	//rpc GenCallEvmTx() returns (TxStatus) {
+	//}
+
+	//rpc QueryEvmTx(TxStatus) returns (TxStatus) {
+	//}
+	// PutTx put Transactions to a node
+	rpc PutTx(pb.TxStatus) returns (pb.CommonReply) {}
+
+	// PrepareTx prepare tx to sdk
+	rpc PrepareTx(pb.TxStatus) returns (pb.TxStatus) {}
+
+	// PostTx post Transaction to a node
+	rpc PostTx(pb.TxStatus) returns (pb.CommonReply) {
+		option (google.api.http) = {
+			post: "/v1/post_tx"
+			body: "*"
+		};
+	}
+
+	// BatchPostTx post Transactions to a node
+	rpc BatchPostTx(pb.BatchTxs) returns (pb.CommonReply) {
+		option (google.api.http) = {
+			post: "/v1/batch_post_tx"
+			body: "*"
+		};
+	}
+
+	//rpc GetUTXO(GetUTXOParam) returns (GetUTXOResp) {}
+
+	// QueryTx query Transaction by TxStatus,
+	// Bcname and Txid are required for this
+	rpc QueryTx(pb.TxStatus) returns (pb.TxStatus) {
+		option (google.api.http) = {
+			post: "/v1/query_tx"
+			body: "*"
+		};
+	}
+
+    // GetBalance get balance of an address,
+    // Address is required for this
+	rpc GetBalance(pb.AddressStatus) returns (pb.AddressStatus) {
+		option (google.api.http) = {
+			post: "/v1/get_balance"
+			body: "*"
+		};
+	}
+
+    // GetFrozenBalance get balance that still be frozen of an address,
+    // Address is required for this
+	rpc GetFrozenBalance(pb.AddressStatus) returns (pb.AddressStatus) {
+		option (google.api.http) = {
+			post: "/v1/get_frozen_balance"
+			body: "*"
+		};
+	}
+
+	// GetPeer get peers of another node
+	//rpc GetPeer(PeerArg) returns (PeerList) {}
+
+    // SendBlock accept block and then broadcast to other nodes
+	rpc SendBlock(pb.Block) returns (pb.CommonReply) {}
+
+	// GetBlock get block by blockid and return if the block in trunk or in branch
+	rpc GetBlock(pb.BlockID) returns (pb.Block) {
+		option (google.api.http) = {
+			post: "/v1/get_block"
+			body: "*"
+		};
+	}
+
+	// Get next block by blockId
+	//rpc GetNextBlock(BlockID) returns (Block) {}
+
+	// GetBlockChainStatus get block status
+	rpc GetBlockChainStatus(pb.BCStatus) returns (pb.BCStatus) {
+		option (google.api.http) = {
+			post: "/v1/get_bcstatus"
+			body: "*"
+		};
+	}
+
+	// ConfirmBlockChainStatus confirm whether the block is the tip block of trunk
+	rpc ConfirmBlockChainStatus(pb.BCStatus) returns (pb.BCTipStatus) {}
+
+	// Get blockchains query blockchains
+	rpc GetBlockChains(pb.CommonIn) returns (pb.BlockChains) {
+		option (google.api.http) = {
+    		get: "/v1/get_bcchains"
+    		//body: "*"
+    	};
+	}
+
+    // GetSystemStatus query system status
+	rpc GetSystemStatus(pb.CommonIn) returns (pb.SystemsStatusReply) {
+	    option (google.api.http) = {
+            post: "/v1/get_sysstatus"
+            body: "*"
+        };
+	}
+
+    // RegisterNode provide interface for seed to register new node
+	rpc RegisterNode(pb.NodeInfo) returns (pb.CommonReply) {}
+
+	// SyncPeers sync peer from seeds
+	rpc SyncPeers(pb.CommonIn) returns (pb.NodeInfos) {}
+
+	// EncodeNode encode the node to rawurl
+    rpc EncodeNode(pb.CommonIn) returns (pb.RawUrl) {}
+
+    // GetNetUrl return net url
+    rpc GetNetUrl(pb.CommonIn) returns (pb.RawUrl) {}
+
+	// generate account by Mnemonic
+	rpc GenerateAccountByMnemonic(pb.GenerateAccountByMnemonicInput) returns (pb.AccountMnemonicInfo) {
+		option (google.api.http) = {
+			post: "/v1/gen_acc_by_mne"
+			body: "*"// body: "*"
+		};
+	}
+
+	// create account with Mnemonic
+	rpc CreateNewAccountWithMnemonic(pb.CreateNewAccountWithMnemonicInput) returns (pb.AccountMnemonicInfo) {
+		option (google.api.http) = {
+			post: "/v1/create_acc_with_mne"
+			body: "*"// body: "*"
+		};
+	}
+
+    // merge utxos
+    rpc MergeUTXO (pb.TxData) returns (pb.CommonReply) {
+    }
+
+	// Select utxos
+	rpc SelectUTXO (pb.UtxoInput) returns (pb.UtxoOutput) {
+		option (google.api.http) = {
+			post: "/v1/select_utxos"
+			body: "*"
+		};
+	}
+
+    // Native code deploy interface
+    rpc DeployNativeCode(pb.DeployNativeCodeRequest) returns (pb.DeployNativeCodeResponse);
+    // Native code status
+    rpc NativeCodeStatus(pb.NativeCodeStatusRequest) returns (pb.NativeCodeStatusResponse);
+    // Contract query interface
+    rpc QueryContract(pb.QueryContractRequest) returns (pb.QueryContractResponse) {
+	    option (google.api.http) = {
+            post: "/v1/query_contract"
+            body: "*"
+        };
+    }
+
+    /*
+     * DPoS query interface
+     */
+    //  DposCandidates get all candidates of the tdpos consensus
+    rpc DposCandidates(pb.DposCandidatesRequest) returns (pb.DposCandidatesResponse);
+    //  DposNominateRecords get all records nominated by an user
+    rpc DposNominateRecords(pb.DposNominateRecordsRequest) returns (pb.DposNominateRecordsResponse);
+    //  DposNomineeRecords get nominated record of a candidate
+    rpc DposNomineeRecords(pb.DposNomineeRecordsRequest) returns (pb.DposNomineeRecordsResponse);
+    //  DposVoteRecords get all vote records voted by an user
+    rpc DposVoteRecords(pb.DposVoteRecordsRequest) returns (pb.DposVoteRecordsResponse);
+    //  DposVotedRecords get all vote records of a candidate
+    rpc DposVotedRecords(pb.DposVotedRecordsRequest) returns (pb.DposVotedRecordsResponse);
+    //  DposCheckResults get check results of a specific term
+    rpc DposCheckResults(pb.DposCheckResultsRequest) returns (pb.DposCheckResultsResponse);
+
+    //生成赎回Root币交易
+    rpc GenerateWithdrawTx(pb.WithdrawRequest) returns (pb.TxStatus);
+    //预执行合约
+    rpc PreExec(pb.InvokeRPCRequest) returns (pb.InvokeRPCResponse);
+
+}
